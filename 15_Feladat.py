@@ -39,47 +39,42 @@ def kor_ervenyes(hozzarendeles, index_lista, cel):
 
 # A függvény célja, hogy a szabad négyzetekre olyan számokat rendeljünk, amelyek eleget tesznek a feltételeknek. (Négyzetek összege = Kör)
 def visszalep(hozzarendeles, szabad_index_lista, hasznalt):
-    if not szabad_index_lista:              # szabad_index_lista: a még kitöltendő négyzetek indexei
+    if not szabad_index_lista:                                                   # szabad_index_lista: a még kitöltendő négyzetek indexei
         # Ha minden négyzet ki lett töltve, ellenőrizzük az összes kör feltételét.
         for kor_osszeg_ertek, indexek in kor_osszegek.items():
             if sum(hozzarendeles[idx] for idx in indexek) != kor_osszeg_ertek:   # Minden körnél kiszámolja az adott körhöz tartozó négyzetek értékeinek összegét.
                 return
         megoldasok.append(hozzarendeles.copy())                                  # Másolat készítése a hozzarendeles dictionary-ből
         return
-
-    # Válasszuk ki a következő kitöltendő négyzet indexét
-    aktualis_index = szabad_index_lista[0]
-    for szam in szabad_szamok:
-        if szam in hasznalt:
+ 
+    aktualis_index = szabad_index_lista[0]                     # Kiválasztja a következő kitöltendő négyzet indexét
+    for szam in szabad_szamok:                                 # A ciklus végigiterál minden olyan számot a "szabad_szamok" listából, amit feltudunk használni
+        if szam in hasznalt:                                   # Ha a szám szerepel a "hasznalt" halmazban akkor kihagyja
             continue
-        # Próbáljuk ki az aktuális számot
-        hozzarendeles[aktualis_index] = szam
-        hasznalt.add(szam)
-        # Azok a körök, amelyek tartalmazzák ezt a négyzetet, mostantól ellenőrizendők
+        hozzarendeles[aktualis_index] = szam                   # Az aktuális szám kipróbálása
+        hasznalt.add(szam)                                     # Hozzáadjuk a számot a "hasznalt" halmazhoz, hogy később ne használjuk újra
         ervenyes = True
-        for kor_osszeg_ertek, indexek in kor_osszegek.items():
+        for kor_osszeg_ertek, indexek in kor_osszegek.items(): # Végigmegy a "kor_osszegek" minden elemén, ahol a kulcs az elvárt összegét jelöli, az érték pedig a korhoz tartozó négyzetek indexeit.
             if aktualis_index in indexek:
-                if not kor_ervenyes(hozzarendeles, indexek, kor_osszeg_ertek):
+                if not kor_ervenyes(hozzarendeles, indexek, kor_osszeg_ertek): # Ha a kör ellenőrzése False-t ad (nem egyezik meg a kívánt értékkel) akkor megszakítja a ciklust.
                     ervenyes = False
                     break
         if ervenyes:
             visszalep(hozzarendeles, szabad_index_lista[1:], hasznalt)
-        # Backtracking: visszavonjuk az aktuális hozzárendelést
         hasznalt.remove(szam)
         del hozzarendeles[aktualis_index]
 
-# Kezdeti hozzárendelés: a rögzített négyzetek beállítása
 kezdeti_hozzarendeles = rogzitett_negyzetek.copy() # Készítünk egy másolatot a "rogzitet_negyzetek"-ről. 
-kezdeti_hasznalt = set(rogzitett_negyzetek.values())
+kezdeti_hasznalt = set(rogzitett_negyzetek.values()) 
 
+#A "visszalep" függvény a backtracking algoritmust valósítja meg, amely a szabad négyzeteket próbálja kitölteni a megadott szabályok szerint.
 visszalep(kezdeti_hozzarendeles, szabad_indexek, kezdeti_hasznalt)
 
 # Eredmény kiírása
-if megoldasok:
-    print(f"A feladatra {len(megoldasok)} megoldást találtunk.\n")
-    # Az első megtalált megoldás kiírása
-    elso_megoldas = megoldasok[0]
-    for idx in sorted(elso_megoldas.keys()):
+if megoldasok:                                                         # Ha a "megoldasok" listában van legalább egy megoldást akkor belép az IF ágba.
+    print(f"A feladatra {len(megoldasok)} megoldást találtunk.\n")     # Kiírja hogy hány megoldást talált.
+    elso_megoldas = megoldasok[0]                                      # Az első megtalált megoldás kiírása
+    for idx in sorted(elso_megoldas.keys()):                           # Sorba rendezi az indexeket, és a for ciklus végig iterál az összes rendezett indexen, és kiírja.
         print(f"{idx}. Indexű négyzet = {elso_megoldas[idx]}")
-else:
+else:                                                                  # Ha a "megoldasok" listában nincs egy megoldás se, akkor az else ág fut le.
     print("Nincs megoldás a megadott feltételek mellett.")
