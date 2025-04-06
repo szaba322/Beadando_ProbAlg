@@ -37,18 +37,14 @@ def kor_ervenyes(hozzarendeles, index_lista, cel):
         return osszeg == cel                                    # Ha az összeg megegyezik a a cel-ertekkel akkor a feltétel feljesül.
     return True
 
+# A függvény célja, hogy a szabad négyzetekre olyan számokat rendeljünk, amelyek eleget tesznek a feltételeknek. (Négyzetek összege = Kör)
 def visszalep(hozzarendeles, szabad_index_lista, hasznalt):
-    """
-    Rekurzív backtracking megoldás:
-      - hozzarendeles: a jelenlegi hozzárendelés (szótár, ahol a kulcs a négyzet indexe, az érték a szám)
-      - hasznalt: már használt számok halmaza
-    """
     if not szabad_index_lista:              # szabad_index_lista: a még kitöltendő négyzetek indexei
         # Ha minden négyzet ki lett töltve, ellenőrizzük az összes kör feltételét.
         for kor_osszeg_ertek, indexek in kor_osszegek.items():
             if sum(hozzarendeles[idx] for idx in indexek) != kor_osszeg_ertek:   # Minden körnél kiszámolja az adott körhöz tartozó négyzetek értékeinek összegét.
                 return
-        megoldasok.append(hozzarendeles.copy())
+        megoldasok.append(hozzarendeles.copy())                                  # Másolat készítése a hozzarendeles dictionary-ből
         return
 
     # Válasszuk ki a következő kitöltendő négyzet indexét
@@ -80,10 +76,10 @@ visszalep(kezdeti_hozzarendeles, szabad_indexek, kezdeti_hasznalt)
 
 # Eredmény kiírása
 if megoldasok:
-    print(f"{len(megoldasok)} megoldást találtunk.\n")
+    print(f"A feladatra {len(megoldasok)} megoldást találtunk.\n")
     # Az első megtalált megoldás kiírása
     elso_megoldas = megoldasok[0]
     for idx in sorted(elso_megoldas.keys()):
-        print(f"s{idx} = {elso_megoldas[idx]}")
+        print(f"{idx}. Indexű négyzet = {elso_megoldas[idx]}")
 else:
     print("Nincs megoldás a megadott feltételek mellett.")
