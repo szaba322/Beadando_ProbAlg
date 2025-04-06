@@ -28,14 +28,14 @@ szabad_szamok = list(osszes_szam - felhasznalt_szamok)       # Csak a még szaba
 
 megoldasok = []                                              # Ebben a listában lesznek a program által megtalált megoldások
 
+
+# Ha az adott kör négyzeteihez már mind van érték, ellenőrzi, hogy az összeadásuk megegyezik-e a célértékkel.
+# Ha nem minden érték van még hozzárendelve, True-t ad vissza, mert még nem lehet kizárni.
+
 def kor_ervenyes(hozzarendeles, index_lista, cel):
-    """
-    Ha az adott kör négyzeteihez már mind van érték, ellenőrzi, hogy az összeadásuk megegyezik-e a célértékkel.
-    Ha nem minden érték van még hozzárendelve, True-t ad vissza, mert még nem lehet kizárni.
-    """
-    if all(idx in hozzarendeles for idx in index_lista):    # Végigmegyünk az index_lista összes elemén, és ellenőrizzük hogy szerepelnek-e a hozzarendeles-be
+    if all(idx in hozzarendeles for idx in index_lista):        # Végigmegyünk az index_lista összes elemén, és ellenőrizzük hogy szerepelnek-e a hozzarendeles-be
         osszeg = sum(hozzarendeles[idx] for idx in index_lista) # Összeadjuk azokat a számokat, amik hozzarendeles-ben az index_lista indexeihez tartoznak.
-        return osszeg == cel                                # Ha az összeg megegyezik a a cel-ertekkel akkor a feltétel feljesül.
+        return osszeg == cel                                    # Ha az összeg megegyezik a a cel-ertekkel akkor a feltétel feljesül.
     return True
 
 def visszalep(hozzarendeles, szabad_index_lista, hasznalt):
