@@ -1,3 +1,7 @@
+#15. Feladat. Számok a szomszédban. (max 4 fő)
+#Írj olyan programot, amely elhelyezi az 1-től 12-ig terjedő számokat az ábrában úgy, hogy a körökkel
+#szomszédos mezőkbe kerülő számok összege megegyezzen a körben lévő számmal! Könnyítésül két számot előre beírtunk.
+
 # A körök összegei és a hozzájuk tartozó (1-alapú) négyzetindexek
 kor_osszegek = {
     23: [1, 2, 5, 6],    # k0
