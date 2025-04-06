@@ -31,7 +31,6 @@ megoldasok = []                                              # Ebben a listában
 
 # Ha az adott kör négyzeteihez már mind van érték, ellenőrzi, hogy az összeadásuk megegyezik-e a célértékkel.
 # Ha nem minden érték van még hozzárendelve, True-t ad vissza, mert még nem lehet kizárni.
-
 def kor_ervenyes(hozzarendeles, index_lista, cel):
     if all(idx in hozzarendeles for idx in index_lista):        # Végigmegyünk az index_lista összes elemén, és ellenőrizzük hogy szerepelnek-e a hozzarendeles-be
         osszeg = sum(hozzarendeles[idx] for idx in index_lista) # Összeadjuk azokat a számokat, amik hozzarendeles-ben az index_lista indexeihez tartoznak.
@@ -42,13 +41,12 @@ def visszalep(hozzarendeles, szabad_index_lista, hasznalt):
     """
     Rekurzív backtracking megoldás:
       - hozzarendeles: a jelenlegi hozzárendelés (szótár, ahol a kulcs a négyzet indexe, az érték a szám)
-      - szabad_index_lista: a még kitöltendő négyzetek indexei
       - hasznalt: már használt számok halmaza
     """
-    if not szabad_index_lista:
+    if not szabad_index_lista:              # szabad_index_lista: a még kitöltendő négyzetek indexei
         # Ha minden négyzet ki lett töltve, ellenőrizzük az összes kör feltételét.
         for kor_osszeg_ertek, indexek in kor_osszegek.items():
-            if sum(hozzarendeles[idx] for idx in indexek) != kor_osszeg_ertek:
+            if sum(hozzarendeles[idx] for idx in indexek) != kor_osszeg_ertek:   # Minden körnél kiszámolja az adott körhöz tartozó négyzetek értékeinek összegét.
                 return
         megoldasok.append(hozzarendeles.copy())
         return
