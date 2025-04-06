@@ -73,7 +73,7 @@ def visszalep(hozzarendeles, szabad_index_lista, hasznalt):
         del hozzarendeles[aktualis_index]
 
 # Kezdeti hozzárendelés: a rögzített négyzetek beállítása
-kezdeti_hozzarendeles = rogzitett_negyzetek.copy()
+kezdeti_hozzarendeles = rogzitett_negyzetek.copy() # Készítünk egy másolatot a "rogzitet_negyzetek"-ről. 
 kezdeti_hasznalt = set(rogzitett_negyzetek.values())
 
 visszalep(kezdeti_hozzarendeles, szabad_indexek, kezdeti_hasznalt)
