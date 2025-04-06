@@ -12,30 +12,30 @@ kor_osszegek = {
     24: [7, 8, 11, 12],  # k6
 }
 
-# Előre rögzített négyzetértékek: az 5. négyzet értéke 1, a 8. négyzet értéke 5.
+# Előre rögzített négyzetek értékei: az 5. négyzet értéke 1, a 8. négyzet értéke 5.
 rogzitett_negyzetek = {5: 1, 8: 5}
 
-# Az összes négyzet indexei 1-től 12-ig (1-alapú indexelés)
+# Az összes négyzet indexelése 1-től 12-ig
 osszes_index = list(range(1, 13))
-# Azok a négyzetek, ahol még nincs érték
+
+# Azok a négyzetek amig még nem rendelkeznek értékkel
 szabad_indexek = [i for i in osszes_index if i not in rogzitett_negyzetek]
 
 # Az 1–12 közötti számok, kivéve a már rögzítetteket (1 és 5)
 osszes_szam = set(range(1, 13))
-felhasznalt_szamok = set(rogzitett_negyzetek.values())
-szabad_szamok = list(osszes_szam - felhasznalt_szamok)
-szabad_szamok.sort()  # Rendezhetjük a könnyebb átláthatóság érdekében
+felhasznalt_szamok = set(rogzitett_negyzetek.values())       # Felvesszük a rogzitett_negyzetek értékeit
+szabad_szamok = list(osszes_szam - felhasznalt_szamok)       # Csak a még szabadon lévő számokat tartalmazza
 
-megoldasok = []  # Itt tároljuk a megtalált megoldásokat
+megoldasok = []                                              # Ebben a listában lesznek a program által megtalált megoldások
 
 def kor_ervenyes(hozzarendeles, index_lista, cel):
     """
     Ha az adott kör négyzeteihez már mind van érték, ellenőrzi, hogy az összeadásuk megegyezik-e a célértékkel.
     Ha nem minden érték van még hozzárendelve, True-t ad vissza, mert még nem lehet kizárni.
     """
-    if all(idx in hozzarendeles for idx in index_lista):
-        osszeg = sum(hozzarendeles[idx] for idx in index_lista)
-        return osszeg == cel
+    if all(idx in hozzarendeles for idx in index_lista):    # Végigmegyünk az index_lista összes elemén, és ellenőrizzük hogy szerepelnek-e a hozzarendeles-be
+        osszeg = sum(hozzarendeles[idx] for idx in index_lista) # Összeadjuk azokat a számokat, amik hozzarendeles-ben az index_lista indexeihez tartoznak.
+        return osszeg == cel                                # Ha az összeg megegyezik a a cel-ertekkel akkor a feltétel feljesül.
     return True
 
 def visszalep(hozzarendeles, szabad_index_lista, hasznalt):
