@@ -23,10 +23,10 @@ szabad_indexek = [i for i in osszes_index if i not in rogzitett_negyzetek]
 
 # Az 1–12 közötti számok, kivéve a már rögzítetteket (1 és 5)
 osszes_szam = set(range(1, 13))
-felhasznalt_szamok = set(rogzitett_negyzetek.values())       # Felvesszük a rogzitett_negyzetek értékeit
-szabad_szamok = list(osszes_szam - felhasznalt_szamok)       # Csak a még szabadon lévő számokat tartalmazza
+felhasznalt_szamok = set(rogzitett_negyzetek.values())          # Felvesszük a "rogzitett_negyzetek" értékeit
+szabad_szamok = list(osszes_szam - felhasznalt_szamok)          # Csak a még szabadon lévő számokat tartalmazza
 
-megoldasok = []                                              # Ebben a listában lesznek a program által megtalált megoldások
+megoldasok = []                                                 # Ebben a listában lesznek a program által megtalált megoldások
 
 
 # Ha az adott kör négyzeteihez már mind van érték, ellenőrzi, hogy az összeadásuk megegyezik-e a célértékkel.
